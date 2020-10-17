@@ -1,7 +1,7 @@
 # To build the container, cd into the root directory of the repository (where this Dockerfile is) and type:
 # sudo docker build -t dockermonitor .
 # To run the container, use the following command:
-# sudo docker run --rm -d -v /home/ubuntu/data/dockermonitor:/data dockermonitor:latest
+# sudo docker run --rm -d -v /home/ubuntu/data/dockerstatus:/data dockerstatus:latest
 
 # set base image (host OS)
 FROM python:3.8

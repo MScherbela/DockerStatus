@@ -25,7 +25,7 @@ class ContainerStatus:
 def hello_world():
     containers = [ContainerStatus('Paragliding Weather Scraping', 'paragliding:latest', 'Simple webscraper that logs hourly weather condition and forecasts + the status of flying/schooling conditions at Hohe Wand.'),
                   ContainerStatus('Main webserver', 'nginx_main:latest', 'Main webserver that acts as entry point before dispatching to other sub-servers'),
-                  ContainerStatus('Docker monitor', 'dockermonitor:latest', 'Flask webserver, providing this webpage')]
+                  ContainerStatus('Docker monitor', 'dockerstatus:latest', 'Flask webserver, providing this webpage')]
     data = getContainerData(DATA_DIR)
     for c in containers:
         c.update_status(data)
