@@ -12,7 +12,9 @@ RUN apt-get update
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY main.py .
+COPY templates .
+COPY static .
 
 ENV FLASK_APP=main.py
 # Run using flask webserver. To be replaced by gunicorn
-CMD ["python", "-m", "flask", "run"]
+CMD ["python", "main.py"]

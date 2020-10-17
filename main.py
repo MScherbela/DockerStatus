@@ -1,7 +1,7 @@
 import flask
 import os
 app = flask.Flask(__name__)
-DATA_DIR = 'data'
+DATA_DIR = '/data'
 
 class ContainerStatus:
     def __init__(self, name, image, description=""):
