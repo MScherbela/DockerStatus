@@ -44,5 +44,5 @@ def getContainerData(data_dir):
 
 if __name__ == '__main__':
     # data = getContainerData('data')
-    app.run(port=8010)
+    app.run(port=80)
 
