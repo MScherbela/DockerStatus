@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Docker Status{% endblock %}
+{% block header %}
+    <div class="container" style="max-width: 1600px;">
+        <h1>Status of docker containers</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="max-width: 1600px;">
+        <div class="row">
+            {% for c in containers %}
+            <div class="col-m-6 m-2">
+                <div class="card h-100" style="width: 18rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ c.name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ c.description }}</p>
+                        <p class="card-text">{{ c.status_text }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <h3>
+                            {% if c.up %}
+                                <span class="badge badge-success">Up</span>
+                            {% else %}
+                                <span class="badge badge-danger">Down</span>
+                            {% endif %}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
