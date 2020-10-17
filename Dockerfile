@@ -15,4 +15,4 @@ COPY main.py .
 
 ENV FLASK_APP=main.py
 # Run using flask webserver. To be replaced by gunicorn
-CMD ["python", "-m", "flask run"]
+CMD ["python", "-m", "flask", "run"]
