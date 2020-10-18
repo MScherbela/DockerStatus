@@ -8,13 +8,16 @@ FROM python:3.8
 WORKDIR /home
 RUN apt-get update
 
+RUN apt-get install nano less
+
 # set-up the working dir (incl. the code) and install requirements
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY main.py .
-COPY templates .
-COPY static .
+ADD templates ./templates
+ADD static ./static
 
 ENV FLASK_APP=main.py
 # Run using flask webserver. To be replaced by gunicorn
-CMD ["python", "main.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
+#CMD ["python", "main.py"]
