@@ -19,5 +19,5 @@ ADD static ./static
 
 ENV FLASK_APP=main.py
 # Run using flask webserver. To be replaced by gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:80", "--worker-tmp-dir", "/dev/shm", "--workers=1", "--threads=2", "main:app"]
 #CMD ["python", "main.py"]
