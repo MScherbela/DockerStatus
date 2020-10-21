@@ -20,7 +20,7 @@ class ContainerStatus:
         for c in running_containers:
             if (c.name == self.container_name):
                 self.status_text = str(c.status)
-                if 'up' in self.status_text.lower():
+                if 'running' in self.status_text.lower():
                     self.up = True
                     break
 
