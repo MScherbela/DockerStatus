@@ -30,7 +30,8 @@ def status():
                          ContainerStatus('Main webserver', 'proxy', 'Main webserver that acts as entry point before dispatching to other sub-servers'),
                          ContainerStatus('Docker monitor', 'dockerstatus', 'Flask webserver, providing this webpage'),
                          ContainerStatus('Who am I?', 'whoami', 'Simple container that exposes its container id via http'),
-                         ContainerStatus("Let's encrypt", 'letsencrypt', 'Companion container for the proxy that automatically installs ssl certificates for other containers')]
+                         ContainerStatus("Let's encrypt", 'letsencrypt', 'Companion container for the proxy that automatically installs ssl certificates for other containers'),
+                         ContainerStatus("VSC3 Monitor", 'vscmonitor', 'Dashboard that visualizes status of VSC3 compute nodes')]
     running_containers = getRunningContainers()
     for c in target_containers:
         c.update_status(running_containers)
