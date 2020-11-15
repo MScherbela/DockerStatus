@@ -31,7 +31,8 @@ def status():
                          ContainerStatus('Docker monitor', 'dockerstatus', 'Flask webserver, providing this webpage'),
                          ContainerStatus('Who am I?', 'whoami', 'Simple container that exposes its container id via http'),
                          ContainerStatus("Let's encrypt", 'letsencrypt', 'Companion container for the proxy that automatically installs ssl certificates for other containers'),
-                         ContainerStatus("VSC3 Monitor", 'vscmonitor', 'Dashboard that visualizes status of VSC3 compute nodes')]
+                         ContainerStatus("VSC3 Monitor", 'vscmonitor', 'Dashboard that visualizes status of VSC3 compute nodes'),
+                         ContainerStatus("Static Webserver", "static", "Nginx webserver that serves static files for testing at static.myjournal.at")]
     running_containers = getRunningContainers()
     for c in target_containers:
         c.update_status(running_containers)
