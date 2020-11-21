@@ -42,8 +42,6 @@ def status():
                                                          'Main webserver that acts as entry point before dispatching to other sub-servers'),
                                          ContainerStatus('Docker monitor', 'dockerstatus',
                                                          'Flask webserver, providing this webpage'),
-                                         ContainerStatus('Who am I?', 'whoami',
-                                                         'Simple container that exposes its container id via http'),
                                          ContainerStatus("Let's encrypt", 'letsencrypt',
                                                          'Companion container for the proxy that automatically installs ssl certificates for other containers')
                                          ]),
