@@ -8,27 +8,46 @@
 
 {% block content %}
     <div class="container" style="max-width: 1600px;">
-        <div class="row">
-            {% for c in containers %}
-            <div class="col-m-6 m-2">
-                <div class="card h-100" style="width: 18rem;">
-                    <div class="card-header">
-                        <h3 class="card-title">{{ c.title }}</h3>
+        <div id="accordion">
+            {% for cg in container_groups %}
+                <div class="card">
+                    <div class="card-header" id="heading_{{ loop.index0 }}">
+                        <h5 class="mb-0">
+                            <button class="btn {{ "btn-success" if cg.up else "btn-danger" }}" data-toggle="collapse"
+                                    data-target="#collapse_{{ loop.index0 }}">
+                                {{ cg.title }}
+                            </button>
+                        </h5>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">{{ c.description }}</p>
-                    </div>
-                    <div class="card-footer">
-                        <h3>
-                            {% if c.up %}
-                                <span class="badge badge-success">Up</span>
-                            {% else %}
-                                <span class="badge badge-danger">Down</span>
-                            {% endif %}
-                        </h3>
+
+                    <div id="collapse_{{ loop.index0 }}" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                {% for c in cg.containers %}
+                                    <div class="col-m-6 m-2">
+                                        <div class="card h-100" style="width: 18rem;">
+                                            <div class="card-header">
+                                                <h3 class="card-title">{{ c.title }}</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">{{ c.description }}</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <h3>
+                                                    {% if c.up %}
+                                                        <span class="badge badge-success">Up</span>
+                                                    {% else %}
+                                                        <span class="badge badge-danger">Down</span>
+                                                    {% endif %}
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>
