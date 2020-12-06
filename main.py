@@ -43,7 +43,8 @@ def status():
                                          ContainerStatus('Docker monitor', 'dockerstatus',
                                                          'Flask webserver, providing this webpage'),
                                          ContainerStatus("Let's encrypt", 'letsencrypt',
-                                                         'Companion container for the proxy that automatically installs ssl certificates for other containers')
+                                                         'Companion container for the proxy that automatically installs ssl certificates for other containers'),
+                                         ContainerStatus("Dynamic DNS", "dyndns", "Regularly sends updated IP-address changes to the nameserver")
                                          ]),
                          ContainerGroup('Web projects',
                                         [ContainerStatus('Paragliding Weather Scraping', 'paragliding',
