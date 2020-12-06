@@ -20,7 +20,7 @@ class ContainerGroup:
 
     def get_as_dict(self):
         return dict(title=self.title,
-                    containers=[c.get_as_dict() for c in self.containers])
+                    containers=[ContainerStatus(c.get_as_dict()) for c in self.containers])
 
 class ContainerStatus:
     def __init__(self, config_dict):
@@ -48,7 +48,7 @@ class ContainerStatus:
 @app.route('/')
 def status():
     with open('/config/containers.json') as f:
-        container_groups = json.load(f)
+        container_groups = [ContainerGroup(cg) for cg in json.load(f)]
 
     running_containers = getRunningContainers()
     for cg in container_groups:

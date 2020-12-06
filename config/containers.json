@@ -3,7 +3,7 @@
     "title": "Basic infrastructure",
     "containers": [
       {
-        "title": "Main webserver",
+        "title": "Proxy webserver",
         "container_name": "proxy",
         "description": "Main webserver that acts as entry point before dispatching to other sub-servers"
       },
@@ -21,6 +21,11 @@
         "title": "Dynamic DNS",
         "container_name": "dyndns",
         "description": "Regularly sends updated IP-address changes to the nameserver"
+      },
+      {
+       "title": "Backup",
+       "container_name": "borgbackup",
+       "description": "BORG backup triggered by cron to run regular incremental backups"
       }
     ]
   },
@@ -41,6 +46,11 @@
         "title": "Static Webserver",
         "container_name": "static",
         "description": "Nginx webserver that serves static files for testing at static.myjournal.at"
+      },
+      {
+        "title": "News scraper",
+	"container_name": "newsscraper",
+	"description": "Scraping newspaper headlines from derstandard.at"
       }
     ]
   },
