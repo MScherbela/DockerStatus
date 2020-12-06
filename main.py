@@ -1,13 +1,14 @@
 import flask
 import docker
+import json
 
 app = flask.Flask(__name__)
 DOCKER_SOCKET = 'unix://var/run/docker.sock'
 
 class ContainerGroup:
-    def __init__(self, title, containers):
-        self.title = title
-        self.containers = containers
+    def __init__(self, config_dict):
+        self.title = config_dict['title']
+        self.containers = [ContainerStatus(d) for d in config_dict['containers']]
         self.up = False
 
     def update_status(self, running_containers):
@@ -17,11 +18,15 @@ class ContainerGroup:
             if not c.up:
                 self.up = False
 
+    def get_as_dict(self):
+        return dict(title=self.title,
+                    containers=[c.get_as_dict() for c in self.containers])
+
 class ContainerStatus:
-    def __init__(self, title, container_name, description=""):
-        self.container_name = container_name
-        self.title = title
-        self.description = description
+    def __init__(self, config_dict):
+        self.container_name = config_dict['container_name']
+        self.title = config_dict['title']
+        self.description = config_dict['description']
         self.status_text = ""
         self.up = False
 
@@ -35,46 +40,20 @@ class ContainerStatus:
                     self.up = True
                     break
 
+    def get_as_dict(self):
+        return dict(title=self.title,
+                    container_name=self.container_name,
+                    description=self.description)
+
 @app.route('/')
 def status():
-    containers_groups = [ContainerGroup('Basic infrastructure',
-                                        [ContainerStatus('Main webserver', 'proxy',
-                                                         'Main webserver that acts as entry point before dispatching to other sub-servers'),
-                                         ContainerStatus('Docker monitor', 'dockerstatus',
-                                                         'Flask webserver, providing this webpage'),
-                                         ContainerStatus("Let's encrypt", 'letsencrypt',
-                                                         'Companion container for the proxy that automatically installs ssl certificates for other containers'),
-                                         ContainerStatus("Dynamic DNS", "dyndns", "Regularly sends updated IP-address changes to the nameserver")
-                                         ]),
-                         ContainerGroup('Web projects',
-                                        [ContainerStatus('Paragliding Weather Scraping', 'paragliding',
-                                                         'Simple webscraper that logs hourly weather condition and forecasts + the status of flying/schooling conditions at Hohe Wand.'),
-                                         ContainerStatus('VSC monitor', 'vscmonitor',
-                                                         'Dashboard that visualizes status and occupation of VSC3 compute nodes'),
-                                         ContainerStatus("Static Webserver", "static",
-                                                         "Nginx webserver that serves static files for testing at static.myjournal.at")
-                                         ]),
-                         ContainerGroup('Nextcloud',
-                                        [ContainerStatus('Nextcloud', 'nextcloud',
-                                                         'Private cloud, providing file storage'),
-                                         ContainerStatus('Nextcloud DB', 'nextcloud_db',
-                                                         'Database for nextcloud'),
-                                         ContainerStatus('Nextcloud cache', 'nextcloud_redis',
-                                                         'Redis in-memory cache for accelerating nextcloud')
-                                         ]),
-                         ContainerGroup('Other cloud services',
-                                        [ContainerStatus('Photo Library', 'photoprism',
-                                                         'AI powered PhotoPrism gallery of photos, built on top of nextcloud data'),
-                                         ContainerStatus('Photo DB', 'photoprism_db',
-                                                         'SQL database to power photoprism'),
-                                         ContainerStatus('Bitwarden', 'bitwarden', 'Self-hosted password manager')
-                                         ])
-                         ]
+    with open('/config/containers.json') as f:
+        container_groups = json.load(f)
 
     running_containers = getRunningContainers()
-    for cg in containers_groups:
+    for cg in container_groups:
         cg.update_status(running_containers)
-    return flask.render_template('dockerstatus.html', container_groups=containers_groups)
+    return flask.render_template('dockerstatus.html', container_groups=container_groups)
 
 def getRunningContainers():
     """Returns a list of the names of running docker containers"""
@@ -83,6 +62,4 @@ def getRunningContainers():
     return containers
 
 if __name__ == '__main__':
-    # data = getContainerData('data')
-    app.run(host="0.0.0.0", port=80)
-
+    pass

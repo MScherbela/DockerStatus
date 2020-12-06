@@ -1,0 +1,87 @@
+[
+  {
+    "title": "Basic infrastructure",
+    "containers": [
+      {
+        "title": "Main webserver",
+        "container_name": "proxy",
+        "description": "Main webserver that acts as entry point before dispatching to other sub-servers"
+      },
+      {
+        "title": "Docker monitor",
+        "container_name": "dockerstatus",
+        "description": "Flask webserver, providing this webpage"
+      },
+      {
+        "title": "Let's encrypt",
+        "container_name": "letsencrypt",
+        "description": "Companion container for the proxy that automatically installs ssl certificates for other containers"
+      },
+      {
+        "title": "Dynamic DNS",
+        "container_name": "dyndns",
+        "description": "Regularly sends updated IP-address changes to the nameserver"
+      }
+    ]
+  },
+  {
+    "title": "Web projects",
+    "containers": [
+      {
+        "title": "Paragliding Weather Scraping",
+        "container_name": "paragliding",
+        "description": "Simple webscraper that logs hourly weather condition and forecasts + the status of flying/schooling conditions at Hohe Wand."
+      },
+      {
+        "title": "VSC monitor",
+        "container_name": "vscmonitor",
+        "description": "Dashboard that visualizes status and occupation of VSC3 compute nodes"
+      },
+      {
+        "title": "Static Webserver",
+        "container_name": "static",
+        "description": "Nginx webserver that serves static files for testing at static.myjournal.at"
+      }
+    ]
+  },
+  {
+    "title": "Nextcloud",
+    "containers": [
+      {
+        "title": "Nextcloud",
+        "container_name": "nextcloud",
+        "description": "Private cloud, providing file storage"
+      },
+      {
+        "title": "Nextcloud DB",
+        "container_name": "nextcloud_db",
+        "description": "Database for nextcloud"
+      },
+      {
+        "title": "Nextcloud cache",
+        "container_name": "nextcloud_redis",
+        "description": "Redis in-memory cache for accelerating nextcloud"
+      }
+    ]
+  },
+  {
+    "title": "Other cloud services",
+    "containers": [
+      {
+        "title": "Photo Library",
+        "container_name": "photoprism",
+        "description": "AI powered PhotoPrism gallery of photos, built on top of nextcloud data"
+      },
+      {
+        "title": "Photo DB",
+        "container_name": "photoprism_db",
+        "description": "SQL database to power photoprism"
+      },
+      {
+        "title": "Bitwarden",
+        "container_name": "bitwarden",
+        "description": "Self-hosted password manager"
+      }
+    ]
+  }
+]
