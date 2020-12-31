@@ -14,6 +14,7 @@ RUN apt-get install nano less
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY main.py .
+COPY logmonitor.py .
 ADD templates ./templates
 ADD static ./static
 

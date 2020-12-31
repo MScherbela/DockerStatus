@@ -21,11 +21,6 @@
         "title": "Dynamic DNS",
         "container_name": "dyndns",
         "description": "Regularly sends updated IP-address changes to the nameserver"
-      },
-      {
-       "title": "Backup",
-       "container_name": "borgbackup",
-       "description": "BORG backup triggered by cron to run regular incremental backups"
       }
     ]
   },
