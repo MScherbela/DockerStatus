@@ -1,6 +1,7 @@
 import flask
 import docker
 import json
+import logmonitor
 
 app = flask.Flask(__name__)
 DOCKER_SOCKET = 'unix://var/run/docker.sock'
@@ -50,10 +51,18 @@ def status():
     with open('/config/containers.json') as f:
         container_groups = [ContainerGroup(cg) for cg in json.load(f)]
 
+    # Get container data
     running_containers = getRunningContainers()
     for cg in container_groups:
         cg.update_status(running_containers)
-    return flask.render_template('dockerstatus.html', container_groups=container_groups)
+
+    # Get data on logfiles
+    backup_status, backup_msg = logmonitor.are_backups_ok('/all_logs/borgbackup/prune.log')
+
+    return flask.render_template('dockerstatus.html',
+                                 container_groups=container_groups,
+                                 backup_status=backup_status,
+                                 backup_msg=backup_msg)
 
 def getRunningContainers():
     """Returns a list of the names of running docker containers"""
