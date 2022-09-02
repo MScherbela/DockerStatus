@@ -35,6 +35,8 @@ def are_backups_ok(prune_logfilename):
         for r in repos:
             if (t,r) not in latest_backups:
                 return False, f"Missing backup: {t}/{r}"
+            if len(latest_backups[(t,r)]) == 0:
+               return False, "Error parsing backup logfile"
             age = (datetime.now() - latest_backups[(t,r)][-1]).total_seconds()
             if age > m:
                 return False, f"Backup too old: {t}/{r}; Age = {age/(3600*24):.1f} days"
