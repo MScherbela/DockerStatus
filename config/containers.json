@@ -33,6 +33,21 @@
         "description": "Simple webscraper that logs hourly weather condition and forecasts + the status of flying/schooling conditions at Hohe Wand."
       },
       {
+        "title": "Paragliding Alert",
+        "container_name": "paragliding_alert",
+        "description": "Send alert email when good weather conditions for flying open up"
+      },
+      {
+        "title": "Gamewatch",
+        "container_name": "gamewatch",
+        "description": "Watch availability of board games in local library"
+      },
+      {
+        "title": "Habit Tracker",
+        "container_name": "journal",
+        "description": "Habittracker and journalling app"
+      },
+      {
         "title": "VSC monitor",
         "container_name": "vscmonitor",
         "description": "Dashboard that visualizes status and occupation of VSC3 compute nodes"
@@ -40,12 +55,22 @@
       {
         "title": "Static Webserver",
         "container_name": "static",
-        "description": "Nginx webserver that serves static files for testing at static.myjournal.at"
+        "description": "Nginx webserver that serves static files for testing at static.scherbela.com"
+      },
+      {
+        "title": "Personal Webpage",
+        "container_name": "personal_website",
+        "description": "Nginx webserver that serves static personal website"
       },
       {
         "title": "News scraper",
 	"container_name": "newsscraper",
 	"description": "Scraping newspaper headlines from derstandard.at"
+      },
+      {
+        "title": "News scraper frontend",
+	"container_name": "newsscraper_frontend",
+	"description": "Visualize keywords and headlined in Austrian news over tme"
       }
     ]
   },
@@ -86,6 +111,16 @@
         "title": "Bitwarden",
         "container_name": "bitwarden",
         "description": "Self-hosted password manager"
+      },
+      {
+        "title": "Icecast Server",
+        "container_name": "icecast_server",
+        "description": "Icecast server for webradio streaming"
+      },
+      {
+        "title": "Icecast Sources",
+        "container_name": "icecast_stations",
+        "description": "Music sources streaming to icecast server"
       }
     ]
   }
