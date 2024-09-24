@@ -4,7 +4,7 @@
 # sudo docker run --rm -d -v /home/ubuntu/data/dockerstatus:/data dockerstatus:latest
 
 # set base image (host OS)
-FROM uv:python3.11-alpine
+FROM ghcr.io/astral-sh/uv:python3.11-alpine
 ADD . /app
 WORKDIR /app
 RUN uv sync --frozen
