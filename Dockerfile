@@ -4,21 +4,10 @@
 # sudo docker run --rm -d -v /home/ubuntu/data/dockerstatus:/data dockerstatus:latest
 
 # set base image (host OS)
-FROM python:3.8
-WORKDIR /home
-RUN apt-get update
-
-RUN apt-get install nano less
-
-# set-up the working dir (incl. the code) and install requirements
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY main.py .
-COPY logmonitor.py .
-ADD templates ./templates
-ADD static ./static
-
+FROM uv:python3.11-alpine
+ADD . /app
+WORKDIR /app
+RUN uv sync --frozen
 ENV FLASK_APP=main.py
-# Run using flask webserver. To be replaced by gunicorn
-CMD ["gunicorn", "--bind", ":80", "--worker-tmp-dir", "/dev/shm", "--workers=1", "--threads=2", "main:app"]
-#CMD ["python", "main.py"]
+
+CMD ["uv", "run", "gunicorn", "--bind", ":80", "--worker-tmp-dir", "/dev/shm", "--workers=1", "--threads=2", "main:app"]
